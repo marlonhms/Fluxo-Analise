@@ -10,7 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2338BDF8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 20V10'/><path d='M12 20V4'/><path d='M6 20v-6'/></svg>">
   
   <!-- CSS with cache-busting -->
-  <link rel="stylesheet" href="style.css?v=12.0">
+  <link rel="stylesheet" href="style.css?v=13.0">
   
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -141,12 +141,19 @@
 
           <!-- Bottom Navigation Bar (Fixed Sibling Below Scrolling Stage) -->
           <div class="presentation-controls-bar">
-            <div style="font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
+            <div class="nav-hints">
               <span>Navegue com:</span>
               <span class="kbd-badge">←</span>
               <span class="kbd-badge">→</span>
               <span class="kbd-badge">Espaço</span>
               <span class="kbd-badge">Clicker USB</span>
+            </div>
+
+            <!-- Central Developer Credit Badge -->
+            <div class="dev-author-badge">
+              <span class="dev-dot"></span>
+              <i data-lucide="code-2" style="width: 14px; height: 14px; color: #38BDF8;"></i>
+              <span>Desenvolvido por <strong class="author-name">Marlon Henrique</strong></span>
             </div>
 
             <div class="nav-buttons-group">
@@ -231,6 +238,13 @@
             <div class="swimlane-container" id="swimlane-container">
               <!-- Dynamically populated -->
             </div>
+          </div>
+        <!-- Bottom Floating Credit in Map View -->
+        <div class="map-bottom-credit">
+          <div class="dev-author-badge">
+            <span class="dev-dot"></span>
+            <i data-lucide="code-2" style="width: 14px; height: 14px; color: #38BDF8;"></i>
+            <span>Desenvolvido por <strong class="author-name">Marlon Henrique</strong></span>
           </div>
         </div>
       </section>
@@ -435,7 +449,7 @@
   </div>
 
   <!-- SCRIPTS with cache-busting -->
-  <script src="data.js?v=12.0"></script>
-  <script src="app.js?v=12.0"></script>
+  <script src="data.js?v=13.0"></script>
+  <script src="app.js?v=13.0"></script>
 </body>
 </html>

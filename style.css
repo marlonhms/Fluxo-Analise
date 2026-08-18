@@ -661,6 +661,88 @@ body.light-theme .brand-titles h1 {
   z-index: 20;
 }
 
+.nav-hints {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   DEVELOPER CREDIT BADGE (DESTAQUE AO AUTOR)
+   ========================================================================== */
+.dev-author-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  background: rgba(13, 19, 34, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: #94A3B8;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 14px rgba(56, 189, 248, 0.15);
+  transition: all var(--transition-normal);
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dev-author-badge:hover {
+  border-color: rgba(56, 189, 248, 0.7);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.4);
+  transform: translateY(-1px);
+}
+
+.dev-author-badge .dev-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38BDF8;
+  box-shadow: 0 0 8px #38BDF8;
+  animation: pulse-dot 2.2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+.dev-author-badge .author-name {
+  font-weight: 700;
+  color: #F8FAFC;
+  background: linear-gradient(90deg, #38BDF8 0%, #818CF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.02em;
+}
+
+body.light-theme .dev-author-badge {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(2, 132, 199, 0.35);
+  color: #475569;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 10px rgba(2, 132, 199, 0.1);
+}
+
+body.light-theme .dev-author-badge .author-name {
+  background: linear-gradient(90deg, #0284C7 0%, #4F46E5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.map-bottom-credit {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  pointer-events: auto;
+}
+
 .step-indicator-dots {
   display: flex;
   align-items: center;
