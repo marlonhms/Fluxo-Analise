@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapeamento de Processos | Análise Técnica & Atendimento</title>
+  <meta name="description" content="Apresentação interativa e executiva do fluxo de trabalho da equipe de análise técnica, triagem de suporte e integração com engenharia.">
+  
+  <!-- CSS with cache-busting -->
+  <link rel="stylesheet" href="style.css?v=7.0">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- ==========================================================================
+         TOP HEADER & NAVIGATION
+         ========================================================================== -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-icon">
+          <i data-lucide="git-branch" style="width: 22px; height: 22px;"></i>
+        </div>
+        <div class="brand-titles">
+          <h1>Análise Técnica & Atendimento</h1>
+          <p>Mapeamento Operacional & Estratégico do Ciclo da Demanda</p>
+        </div>
+      </div>
+
+      <!-- Mode Switcher Tabs -->
+      <nav class="mode-nav" aria-label="Modos de Apresentação">
+        <button class="mode-tab active" data-view="presentation-view" id="tab-pres">
+          <i data-lucide="presentation" style="width: 16px; height: 16px;"></i>
+          <span>Apresentação Guiada</span>
+          <span class="tab-badge">Telão</span>
+        </button>
+        <button class="mode-tab" data-view="map-view" id="tab-map">
+          <i data-lucide="map" style="width: 16px; height: 16px;"></i>
+          <span>Mapa Panorâmico</span>
+          <span class="tab-badge">BPMN</span>
+        </button>
+        <button class="mode-tab" data-view="scenario-view" id="tab-scenario">
+          <i data-lucide="play" style="width: 16px; height: 16px;"></i>
+          <span>Simulador de Casos</span>
+          <span class="tab-badge">Interativo</span>
+        </button>
+        <button class="mode-tab" data-view="evidence-view" id="tab-evidence">
+          <i data-lucide="folder-check" style="width: 16px; height: 16px;"></i>
+          <span>Guia de Evidências</span>
+          <span class="tab-badge">Suporte</span>
+        </button>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button class="action-btn icon-only" id="btn-theme-toggle" title="Alternar Modo Claro/Escuro (T)" aria-label="Tema">
+          <i data-lucide="moon" id="theme-icon" style="width: 18px; height: 18px;"></i>
+        </button>
+        <button class="action-btn icon-only" id="btn-contrast-toggle" title="Modo Alto Contraste para Projetor (C)" aria-label="Alto Contraste">
+          <i data-lucide="sun-medium" style="width: 18px; height: 18px;"></i>
+        </button>
+        <button class="action-btn icon-only" id="btn-shortcuts" title="Atalhos do Teclado (?)" aria-label="Atalhos">
+          <i data-lucide="help-circle" style="width: 18px; height: 18px;"></i>
+        </button>
+        <button class="action-btn primary" id="btn-fullscreen" title="Tela Cheia para Projetor (F)">
+          <i data-lucide="maximize" style="width: 16px; height: 16px;"></i>
+          <span>Tela Cheia</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==========================================================================
+         MAIN VIEWPORT
+         ========================================================================== -->
+    <main class="main-viewport">
+      
+      <!-- VIEW 1: MODO APRESENTAÇÃO (SLIDES / STORYTELLING) -->
+      <section id="presentation-view" class="view-container active">
+        <div class="presentation-main-col">
+          <div class="presentation-stage">
+            <div class="slide-header">
+              <div class="slide-badge-box">
+                <span class="slide-chapter" id="pres-chapter">Capítulo 1 de 6</span>
+                <span class="slide-tag" id="pres-badge">Panorama Geral</span>
+              </div>
+              <div class="step-indicator-dots" id="pres-dots-container">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+
+            <div class="slide-title-area">
+              <h2 id="pres-title">Visão Geral & Nosso Papel Estratégico</h2>
+              <h3 id="pres-subtitle">A Análise Técnica como Ponte de Alta Precisão entre Atendimento e Engenharia</h3>
+            </div>
+
+            <div class="slide-body-grid">
+              <div class="headline-card">
+                <div class="main-quote" id="pres-headline">
+                  Transformando relatos de suporte em engenharia de diagnóstico estruturada
+                </div>
+
+                <!-- 3 Pillars Grid -->
+                <div class="pillars-grid" id="pres-pillars-grid">
+                  <!-- Rendered via JS -->
+                </div>
+
+                <!-- Points List -->
+                <ul class="points-list" id="pres-points-list">
+                  <!-- Rendered via JS -->
+                </ul>
+
+                <!-- Do's and Don'ts Practical Guide -->
+                <div class="guidelines-box" id="pres-guidelines-box">
+                  <div class="guide-item guide-do">
+                    <div class="guide-badge"><i data-lucide="check" style="width: 14px; height: 14px;"></i> O Que Fazer (Padrão Ouro)</div>
+                    <p id="pres-guide-do">Descrição da melhor prática...</p>
+                  </div>
+                  <div class="guide-item guide-dont">
+                    <div class="guide-badge"><i data-lucide="x" style="width: 14px; height: 14px;"></i> O Que Evitar (Causa Retrabalho)</div>
+                    <p id="pres-guide-dont">Descrição do erro comum...</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-kpi-card">
+                <div class="kpi-stat-box">
+                  <div class="kpi-value" id="pres-kpi-val">Até 70%</div>
+                  <div class="kpi-label" id="pres-kpi-lbl">Redução de Retrabalho no Dev</div>
+                </div>
+                <div class="speaker-notes-box">
+                  <h5><i data-lucide="mic" style="width: 13px; height: 13px;"></i> Dica do Apresentador</h5>
+                  <p id="pres-speaker-notes">Destacar para a gestão que a análise atua como um 'filtro de ouro', garantindo que o Dev receba apenas código e bugs mastigados.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Navigation Bar (Fixed Sibling Below Scrolling Stage) -->
+          <div class="presentation-controls-bar">
+            <div style="font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
+              <span>Navegue com:</span>
+              <span class="kbd-badge">←</span>
+              <span class="kbd-badge">→</span>
+              <span class="kbd-badge">Espaço</span>
+              <span class="kbd-badge">Clicker USB</span>
+            </div>
+
+            <div class="nav-buttons-group">
+              <button class="pres-btn" id="pres-btn-prev" disabled>
+                <i data-lucide="chevron-left" style="width: 18px; height: 18px;"></i>
+                <span>Anterior</span>
+              </button>
+              <button class="pres-btn primary" id="pres-btn-next">
+                <span>Próxima Etapa</span>
+                <i data-lucide="chevron-right" style="width: 18px; height: 18px;"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Preview Canvas (Right Column) -->
+        <aside class="presentation-mini-canvas">
+          <div class="mini-canvas-header">
+            <h4>Nós em Foco Nesta Etapa</h4>
+            <span style="font-size: 11px; color: var(--text-muted);">Clique para inspecionar</span>
+          </div>
+          <div class="mini-nodes-list" id="pres-mini-nodes">
+            <!-- Rendered via JS -->
+          </div>
+        </aside>
+      </section>
+
+      <!-- VIEW 2: MAPA PANORÂMICO INTERATIVO (CANVAS) -->
+      <section id="map-view" class="view-container">
+        <!-- Top Bar Overlay -->
+        <div class="map-top-bar">
+          <div class="swimlane-filter-bar">
+            <button class="lane-filter-pill active" data-filter="all" style="--pill-color: #F8FAFC; --pill-glow: rgba(255,255,255,0.2);">
+              <span>Todos os Fluxos</span>
+            </button>
+            <button class="lane-filter-pill" data-filter="suporte" style="--pill-color: #38BDF8; --pill-glow: rgba(56,189,248,0.3);">
+              <span class="dot"></span>
+              <span>1. Suporte</span>
+            </button>
+            <button class="lane-filter-pill" data-filter="ponto_focal" style="--pill-color: #818CF8; --pill-glow: rgba(129,140,248,0.3);">
+              <span class="dot"></span>
+              <span>2. Ponto Focal</span>
+            </button>
+            <button class="lane-filter-pill" data-filter="analise_tecnica" style="--pill-color: #34D399; --pill-glow: rgba(52,211,153,0.3);">
+              <span class="dot"></span>
+              <span>3. Análise Técnica</span>
+            </button>
+            <button class="lane-filter-pill" data-filter="areas_apoio" style="--pill-color: #F59E0B; --pill-glow: rgba(245,158,11,0.3);">
+              <span class="dot"></span>
+              <span>4. Áreas de Apoio</span>
+            </button>
+          </div>
+
+          <div class="canvas-quick-jump">
+            <button class="jump-btn" data-target="suporte">📍 Suporte</button>
+            <button class="jump-btn" data-target="ponto_focal">📍 Ponto Focal</button>
+            <button class="jump-btn" data-target="analise_tecnica">📍 Análise Técnica</button>
+            <button class="jump-btn" data-target="areas_apoio">📍 Áreas de Apoio</button>
+          </div>
+        </div>
+
+        <!-- Floating Toolbar -->
+        <div class="canvas-toolbar">
+          <button class="tool-btn" id="btn-zoom-in" title="Aumentar Zoom (+)">
+            <i data-lucide="zoom-in" style="width: 18px; height: 18px;"></i>
+          </button>
+          <span class="zoom-indicator" id="zoom-value">100%</span>
+          <button class="tool-btn" id="btn-zoom-out" title="Diminuir Zoom (-)">
+            <i data-lucide="zoom-out" style="width: 18px; height: 18px;"></i>
+          </button>
+          <button class="tool-btn" id="btn-zoom-reset" title="Ajustar à Tela (0)">
+            <i data-lucide="maximize-2" style="width: 18px; height: 18px;"></i>
+          </button>
+        </div>
+
+        <!-- Canvas Pan/Zoom Wrapper -->
+        <div class="canvas-wrapper" id="canvas-wrapper">
+          <div class="diagram-board" id="diagram-board">
+            <!-- SVG Connectors Layer -->
+            <svg class="connections-svg" id="connections-svg"></svg>
+
+            <!-- Swimlanes Container -->
+            <div class="swimlane-container" id="swimlane-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 3: SIMULADOR DE CENÁRIOS ("A JORNADA DO CHAMADO") -->
+      <section id="scenario-view" class="view-container">
+        <div class="scenario-header-bar">
+          <div>
+            <h2>Simulador de Cenários ("A Jornada do Chamado")</h2>
+            <p>Escolha uma situação real para ver o caminho do ticket percorrido ao vivo e o impacto no negócio.</p>
+          </div>
+          <div class="speed-control-box">
+            <label for="sim-speed">Velocidade:</label>
+            <select id="sim-speed">
+              <option value="1200">1.0x (Normal)</option>
+              <option value="700">1.5x (Rápido)</option>
+              <option value="400">2.0x (Ultra)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Scenarios Grid -->
+        <div class="scenarios-selector-grid" id="scenarios-grid">
+          <!-- Rendered via JS -->
+        </div>
+
+        <!-- Active Scenario Simulation Arena -->
+        <div class="scenario-arena">
+          <div class="arena-top-controls">
+            <div class="player-controls">
+              <button class="sim-play-btn" id="sim-play-btn">
+                <i data-lucide="play" id="sim-play-icon" style="width: 16px; height: 16px;"></i>
+                <span id="sim-play-label">Iniciar Simulação</span>
+              </button>
+              <button class="sim-step-btn" id="sim-step-btn">
+                <span>Passo Seguinte</span>
+                <i data-lucide="step-forward" style="width: 14px; height: 14px;"></i>
+              </button>
+              <button class="sim-step-btn" id="sim-reset-btn">
+                <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i>
+                <span>Reiniciar</span>
+              </button>
+            </div>
+            <div style="font-size: 13px; color: var(--text-secondary);" id="sim-progress-text">
+              Etapa 0 de 0
+            </div>
+          </div>
+
+          <!-- Horizontal Path Step Tracker -->
+          <div class="simulation-path-track" id="sim-track">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- Scenario Outcome Card -->
+          <div class="scenario-outcome-box" id="sim-outcome-box">
+            <div class="outcome-status-col">
+              <h5>Status da Demanda</h5>
+              <div class="status-pill" id="sim-outcome-status">Selecione um cenário</div>
+              <div style="margin-top: 10px; font-size: 12px; color: var(--text-secondary);" id="sim-outcome-impact">
+                Aguardando execução...
+              </div>
+            </div>
+            <div class="outcome-lesson-col">
+              <h5>Lição Aprendida & Alinhamento com o Suporte</h5>
+              <p id="sim-outcome-lesson">
+                Execute a simulação acima para acompanhar cada ponto de decisão e compreender a importância dos insumos enviados.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: GUIA DE EVIDÊNCIAS (PLAYBOOK DO SUPORTE) -->
+      <section id="evidence-view" class="view-container">
+        <div class="evidence-hero">
+          <div>
+            <h2>Guia Rápido de Evidências por Módulo</h2>
+            <p>O que o time de Suporte precisa coletar antes de encaminhar chamados para a Análise Técnica.</p>
+          </div>
+          <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 8px 16px; border-radius: var(--radius-sm); font-size: 13px; color: #38BDF8;">
+            <i data-lucide="shield-alert" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"></i>
+            Chamados sem esses itens são devolvidos pelo Ponto Focal
+          </div>
+        </div>
+
+        <div class="evidence-modules-grid" id="evidence-grid">
+          <!-- Rendered via JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==========================================================================
+         DETALHES DO NÓ (DRAWER LATERAL)
+         ========================================================================== -->
+    <aside class="details-drawer" id="details-drawer">
+      <div class="drawer-header">
+        <div class="drawer-header-left">
+          <span class="drawer-lane-tag" id="drawer-lane-badge" style="background: rgba(56,189,248,0.2); color: #38BDF8;">Suporte</span>
+          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);" id="drawer-node-type">TASK</span>
+        </div>
+        <button class="drawer-close-btn" id="btn-close-drawer" title="Fechar Detalhes (Esc)">
+          <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <div class="drawer-node-title">
+          <h3 id="drawer-title">Título da Etapa</h3>
+          <p id="drawer-subtitle">Subtítulo explicativo</p>
+        </div>
+
+        <div class="drawer-section">
+          <h4><i data-lucide="info" style="width: 14px; height: 14px;"></i> Objetivo & O que fazemos</h4>
+          <p id="drawer-what-we-do">Descrição detalhada do que a equipe realiza nesta etapa.</p>
+        </div>
+
+        <div class="drawer-section">
+          <h4><i data-lucide="user-check" style="width: 14px; height: 14px;"></i> Responsável</h4>
+          <p id="drawer-responsible" style="font-weight: 600; color: #38BDF8;">Time de Suporte (N1)</p>
+        </div>
+
+        <div class="drawer-section">
+          <h4><i data-lucide="tool" style="width: 14px; height: 14px;"></i> Ferramentas Utilizadas</h4>
+          <div class="tool-tags-list" id="drawer-tools-list">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <div class="drawer-section" id="drawer-checklist-section">
+          <h4><i data-lucide="check-square" style="width: 14px; height: 14px;"></i> Checklist & Requisitos</h4>
+          <div class="checklist-box" id="drawer-checklist-box">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <div class="drawer-section">
+          <h4><i data-lucide="zap" style="width: 14px; height: 14px;"></i> Impacto no Negócio / Boas Práticas</h4>
+          <div class="impact-alert-box" id="drawer-impact">
+            Impacto no negócio...
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==========================================================================
+         MODAL DE ATALHOS DO TECLADO
+         ========================================================================== -->
+    <div class="modal-overlay" id="shortcuts-modal">
+      <div class="modal-card">
+        <div class="modal-head">
+          <h3>Atalhos do Teclado (Controle do Apresentador)</h3>
+          <button class="drawer-close-btn" id="btn-close-modal">
+            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+          </button>
+        </div>
+        <div class="shortcuts-table">
+          <div class="shortcut-row">
+            <span>Avançar Slide / Etapa</span>
+            <div><span class="kbd-badge">→</span> <span class="kbd-badge">Espaço</span></div>
+          </div>
+          <div class="shortcut-row">
+            <span>Voltar Slide / Etapa</span>
+            <span class="kbd-badge">←</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Alternar Tela Cheia</span>
+            <span class="kbd-badge">F</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Modo Apresentação (Slides)</span>
+            <span class="kbd-badge">1</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Modo Mapa Panorâmico</span>
+            <span class="kbd-badge">2</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Simulador de Cenários</span>
+            <span class="kbd-badge">3</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Guia de Evidências</span>
+            <span class="kbd-badge">4</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Alternar Tema Claro/Escuro</span>
+            <span class="kbd-badge">T</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Modo Alto Contraste</span>
+            <span class="kbd-badge">C</span>
+          </div>
+          <div class="shortcut-row">
+            <span>Fechar Painel / Modal</span>
+            <span class="kbd-badge">Esc</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS with cache-busting -->
+  <script src="data.js?v=7.0"></script>
+  <script src="app.js?v=7.0"></script>
+</body>
+</html>
