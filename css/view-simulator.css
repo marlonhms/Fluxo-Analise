@@ -1,0 +1,633 @@
+﻿/* ==========================================================================
+   CSS ISOLADO: VIEW SIMULADOR DE CENÁRIOS
+   Alterações aqui NÃO afetam outras views.
+   ========================================================================== */
+/* ==========================================================================
+   VIEW 3: SIMULADOR DE CENÁRIOS
+   ========================================================================== */
+#scenario-view {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 24px 32px 80px 32px;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #38BDF8 rgba(13, 19, 34, 0.6);
+}
+
+#scenario-view::-webkit-scrollbar {
+  width: 10px;
+}
+
+#scenario-view::-webkit-scrollbar-track {
+  background: rgba(13, 19, 34, 0.8);
+  border-radius: 6px;
+}
+
+#scenario-view::-webkit-scrollbar-thumb {
+  background: #38BDF8;
+  border-radius: 6px;
+  border: 2px solid #0D1322;
+}
+
+#scenario-view::-webkit-scrollbar-thumb:hover {
+  background: #0284C7;
+}
+
+.scenario-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.scenario-header-bar h2 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.scenario-header-bar p {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.scenarios-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.scenario-card-btn {
+  background: var(--bg-card-solid);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition-fast);
+}
+
+.scenario-card-btn * {
+  pointer-events: none;
+}
+
+.player-controls button * {
+  pointer-events: none;
+}
+
+.track-node-badge * {
+  pointer-events: none;
+}
+
+.scenario-card-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--scenario-color, #38BDF8);
+}
+
+.scenario-card-btn.active {
+  border-color: var(--scenario-color, #38BDF8);
+  background: rgba(13, 19, 34, 0.95);
+  box-shadow: 0 0 18px var(--scenario-glow, rgba(56, 189, 248, 0.4));
+}
+
+.scenario-card-btn .card-tag {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--scenario-color, #38BDF8);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 7px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+.scenario-card-btn h4 {
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.scenario-card-btn p {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.scenario-arena {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 24px;
+}
+
+.arena-top-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-secondary);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sim-play-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.sim-play-btn:hover {
+  background: linear-gradient(135deg, #34D399, #10B981);
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+  transform: translateY(-1px);
+}
+
+.sim-step-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sim-step-btn:hover:not(:disabled) {
+  background: var(--bg-card-hover);
+  border-color: var(--border-bright);
+  transform: translateY(-1px);
+}
+
+.sim-step-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sim-step-btn.primary-step {
+  background: linear-gradient(135deg, #0284C7, #2563EB);
+  border: none;
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.35);
+}
+
+.sim-step-btn.primary-step:hover:not(:disabled) {
+  background: linear-gradient(135deg, #38BDF8, #1D4ED8);
+  box-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
+}
+
+.sim-progress-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sim-progress-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sim-progress-track {
+  width: 140px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.sim-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: #38BDF8;
+  transition: width 0.25s ease-out, background-color 0.25s ease-out;
+}
+
+.speed-control-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.speed-control-box select {
+  background: var(--bg-card-solid);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  outline: none;
+}
+
+.simulation-path-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 14px 10px;
+  border-radius: var(--radius-md);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-subtle);
+  scrollbar-width: thin;
+  scrollbar-color: #38BDF8 rgba(13, 19, 34, 0.6);
+}
+
+.simulation-path-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.simulation-path-track::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.5);
+  border-radius: 4px;
+}
+
+.track-node-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--bg-card-solid);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.track-node-badge:hover {
+  border-color: var(--border-bright);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.track-step-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 999px;
+}
+
+.track-node-badge.passed {
+  border-color: rgba(52, 211, 153, 0.5);
+  color: #34D399;
+  background: rgba(52, 211, 153, 0.08);
+}
+
+.track-node-badge.passed .track-step-num {
+  background: rgba(52, 211, 153, 0.2);
+  color: #34D399;
+}
+
+.track-node-badge.current {
+  border-color: #38BDF8;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #0284C7, #2563EB);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+  transform: scale(1.06);
+  font-weight: 600;
+}
+
+.track-node-badge.current .track-step-num {
+  background: #FFFFFF;
+  color: #0284C7;
+  font-weight: 700;
+}
+
+.track-arrow {
+  color: var(--text-muted);
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   LIVE ACTIVE STEP INSPECTOR CARD (DESTAQUE DA ETAPA AO VIVO)
+   ========================================================================== */
+.sim-active-step-card {
+  background: linear-gradient(135deg, rgba(13, 19, 34, 0.95), rgba(22, 30, 46, 0.95));
+  border: 1.5px solid #38BDF8;
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  transition: border-color var(--transition-normal);
+  animation: fadeInStep 0.25s ease-out;
+}
+
+@keyframes fadeInStep {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sim-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+}
+
+.sim-card-lane-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sim-card-step-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+.sim-node-type {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.sim-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sim-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sim-card-title-row h3 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.sim-card-subtitle {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.sim-card-body-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 18px;
+}
+
+.sim-col-main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sim-section-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+
+.sim-section-box h5 {
+  font-family: var(--font-heading);
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sim-what-we-do {
+  font-size: 13.5px;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.sim-checklist-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sim-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-primary);
+  line-height: 1.4;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.sim-col-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sim-side-item {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sim-side-label {
+  font-size: 10.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.sim-side-value {
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sim-tools-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.sim-tool-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: var(--text-primary);
+}
+
+.sim-impact-box {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sim-impact-label {
+  font-family: var(--font-heading);
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #F59E0B;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  letter-spacing: 0.05em;
+}
+
+.sim-impact-text {
+  font-size: 12.5px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* Outcome Box Final Step Highlight */
+.scenario-outcome-box {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 18px;
+  background: var(--bg-secondary);
+  padding: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  transition: all var(--transition-normal);
+}
+
+.scenario-outcome-box.final-step-glow {
+  border-color: #34D399;
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(13, 19, 34, 0.95));
+  box-shadow: 0 0 24px rgba(52, 211, 153, 0.35);
+}
+
+.outcome-status-col h5,
+.outcome-lesson-col h5 {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.outcome-status-col .status-pill {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: rgba(244, 63, 94, 0.15);
+  color: #F43F5E;
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.outcome-lesson-col p {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.outcome-status-col .status-pill.success {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34D399;
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+.outcome-lesson-col p {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+

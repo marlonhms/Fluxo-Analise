@@ -1,0 +1,320 @@
+﻿/* ==========================================================================
+   STYLE.CSS - DESIGN SYSTEM & PROJECTION UI (ANÁLISE TÉCNICA)
+   Otimizado para Telão de Projetor, Alta Resolução Vetorial Sem Perda de Nitidez.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Color Palette - Dark Slate High-Contrast */
+  --bg-primary: #080C14;
+  --bg-secondary: #0D1322;
+  --bg-card: rgba(22, 30, 46, 0.96);
+  --bg-card-hover: rgba(30, 41, 59, 0.98);
+  --bg-card-solid: #151D2C;
+  --bg-glass: rgba(13, 19, 34, 0.96);
+  --bg-glass-heavy: rgba(8, 12, 20, 0.98);
+  
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-medium: rgba(255, 255, 255, 0.25);
+  --border-bright: rgba(255, 255, 255, 0.5);
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-inverse: #080C14;
+
+  /* Accent Colors per Swimlane */
+  --color-suporte: #38BDF8;
+  --color-suporte-glow: rgba(56, 189, 248, 0.4);
+  --color-focal: #818CF8;
+  --color-focal-glow: rgba(129, 140, 248, 0.4);
+  --color-tech: #34D399;
+  --color-tech-glow: rgba(52, 211, 153, 0.4);
+  --color-apoio: #F59E0B;
+  --color-apoio-glow: rgba(245, 158, 11, 0.4);
+  --color-danger: #F43F5E;
+  --color-danger-glow: rgba(244, 63, 94, 0.4);
+  --color-purple: #C084FC;
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Layout & Sizing */
+  --header-height: 70px;
+  --drawer-width: 480px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  
+  /* Shadows & Glows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.75);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Light Mode */
+body.light-theme {
+  --bg-primary: #F1F5F9;
+  --bg-secondary: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: #FFFFFF;
+  --bg-card-solid: #FFFFFF;
+  --bg-glass: rgba(255, 255, 255, 0.94);
+  --bg-glass-heavy: rgba(241, 245, 249, 0.98);
+  
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-medium: rgba(0, 0, 0, 0.15);
+  --border-bright: rgba(0, 0, 0, 0.3);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-inverse: #FFFFFF;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* High Contrast Mode for Projectors */
+body.high-contrast {
+  --bg-primary: #000000;
+  --bg-secondary: #050811;
+  --bg-card: #0F172A;
+  --border-subtle: rgba(255, 255, 255, 0.3);
+  --border-medium: rgba(255, 255, 255, 0.6);
+  --border-bright: #FFFFFF;
+  --text-secondary: #CBD5E1;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* App Container */
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.03) 0%, transparent 40%),
+              radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.03) 0%, transparent 40%),
+              radial-gradient(circle at 50% 50%, rgba(52, 211, 153, 0.02) 0%, transparent 50%),
+              var(--bg-primary);
+}
+
+/* ==========================================================================
+   HEADER & TOP NAVIGATION
+   ========================================================================== */
+.app-header {
+  height: var(--header-height);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-glass);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #0284C7, #4F46E5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+}
+
+.brand-titles h1 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, #F8FAFC 0%, #BAE6FD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.light-theme .brand-titles h1 {
+  background: linear-gradient(90deg, #0F172A 0%, #0369A1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-titles p {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* Mode Switcher Tabs */
+.mode-nav {
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-sm);
+}
+
+.mode-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.mode-tab:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mode-tab.active {
+  background: linear-gradient(135deg, #0284C7, #2563EB);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.mode-tab .tab-badge {
+  font-size: 9.5px;
+  font-family: var(--font-mono);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 6px;
+  border-radius: 999px;
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.action-btn:hover {
+  background: var(--bg-card-solid);
+  border-color: var(--border-bright);
+  transform: translateY(-1px);
+}
+
+.action-btn.icon-only {
+  width: 36px;
+  padding: 0;
+}
+
+.action-btn.primary {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFFFFF;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.3);
+}
+
+.action-btn.primary:hover {
+  background: linear-gradient(135deg, #34D399, #10B981);
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
+}
+
+/* ==========================================================================
+   MAIN VIEWPORT
+   ========================================================================== */
+.main-viewport {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  height: calc(100vh - var(--header-height));
+  min-height: 0;
+  transition: height var(--transition-normal);
+}
+
+/* Modo Tela Cheia Imersivo (Oculta cabeçalho superior para apresentação limpa) */
+body.is-fullscreen .app-header,
+:fullscreen .app-header {
+  display: none !important;
+}
+
+body.is-fullscreen .main-viewport,
+:fullscreen .main-viewport {
+  height: 100vh !important;
+  max-height: 100vh !important;
+}
+
+.view-container {
+  position: absolute;
+  inset: 0;
+  display: none;
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* necessário para confinar filhos absolutos */
+}
+
+.view-container.active {
+  display: block;
+  opacity: 1;
+}
+
