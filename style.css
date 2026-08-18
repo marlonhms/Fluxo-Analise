@@ -310,11 +310,11 @@ body.is-fullscreen .main-viewport,
   transition: opacity var(--transition-normal);
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /* NÃO colocar overflow: hidden aqui — mata o scroll de TODAS as views filhas */
 }
 
 .view-container.active {
-  display: flex;
+  display: block;
   opacity: 1;
 }
 
@@ -322,11 +322,17 @@ body.is-fullscreen .main-viewport,
    VIEW 1: MODO APRESENTAÇÃO (SLIDES / STORYTELLING RICO)
    ========================================================================== */
 #presentation-view {
-  display: flex;
+  display: flex !important;
   flex-direction: row;
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+/* VIEW 2: MAPA PANORÂMICO (canvas com pan/zoom — NÃO rola, faz zoom) */
+#map-view {
+  overflow: hidden;
+  position: relative;
 }
 
 /* Coluna Principal da Apresentação */
@@ -1566,6 +1572,18 @@ body.light-theme .dev-author-badge .author-name {
   cursor: pointer;
   text-align: left;
   transition: var(--transition-fast);
+}
+
+.scenario-card-btn * {
+  pointer-events: none;
+}
+
+.player-controls button * {
+  pointer-events: none;
+}
+
+.track-node-badge * {
+  pointer-events: none;
 }
 
 .scenario-card-btn:hover {

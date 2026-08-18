@@ -1342,12 +1342,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navegação nos slides
     if (state.currentView === 'presentation-view') {
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown' || e.key === 'Enter') {
         e.preventDefault();
         if (state.currentStepIndex < FLOW_DATA.presentationSteps.length - 1) {
           updatePresentationSlide(state.currentStepIndex + 1);
         }
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
         e.preventDefault();
         if (state.currentStepIndex > 0) {
           updatePresentationSlide(state.currentStepIndex - 1);
@@ -1368,10 +1368,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Navegação no Simulador
     if (state.currentView === 'scenario-view') {
-      if (e.key === ' ' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+      if (e.key === ' ' || e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'Enter') {
         e.preventDefault();
         advanceSimStep();
-      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace') {
         e.preventDefault();
         prevSimStep();
       }
