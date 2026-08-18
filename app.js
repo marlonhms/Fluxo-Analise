@@ -1117,6 +1117,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Tela Cheia
     dom.btnFullscreen.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', () => {
+      const isFull = !!document.fullscreenElement;
+      document.body.classList.toggle('is-fullscreen', isFull);
+      if (dom.btnFullscreen) {
+        if (isFull) {
+          dom.btnFullscreen.innerHTML = `<i data-lucide="minimize" style="width: 16px; height: 16px;"></i><span>Sair da Tela Cheia</span>`;
+        } else {
+          dom.btnFullscreen.innerHTML = `<i data-lucide="maximize" style="width: 16px; height: 16px;"></i><span>Tela Cheia</span>`;
+        }
+        refreshIcons();
+      }
+    });
 
     // Atalhos do Teclado
     window.addEventListener('keydown', handleKeyboardShortcuts);
@@ -1124,19 +1136,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function toggleFullscreen() {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(err => {
+      document.documentElement.requestFullscreen().then(() => {
+        document.body.classList.add('is-fullscreen');
+      }).catch(err => {
         console.warn('Erro ao entrar em fullscreen:', err);
+        document.body.classList.toggle('is-fullscreen');
       });
-      dom.btnFullscreen.innerHTML = `<i data-lucide="minimize" style="width: 16px; height: 16px;"></i><span>Sair da Tela Cheia</span>`;
     } else {
-      document.exitFullscreen();
-      dom.btnFullscreen.innerHTML = `<i data-lucide="maximize" style="width: 16px; height: 16px;"></i><span>Tela Cheia</span>`;
+      if (document.exitFullscreen) {
+        document.exitFullscreen().then(() => {
+          document.body.classList.remove('is-fullscreen');
+        }).catch(() => {
+          document.body.classList.remove('is-fullscreen');
+        });
+      } else {
+        document.body.classList.remove('is-fullscreen');
+      }
     }
-    refreshIcons();
   }
 
   function handleKeyboardShortcuts(e) {
     if (e.key === 'Escape') {
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+      document.body.classList.remove('is-fullscreen');
       closeDrawer();
       dom.modal.classList.remove('open');
       return;
