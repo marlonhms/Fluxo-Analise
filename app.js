@@ -194,21 +194,32 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // ZOOM POR SCROLL DO MOUSE
+  // ZOOM POR SCROLL DO MOUSE (CANVAS) & ROLAGEM DOS SLIDES
   // ==========================================================================
   function setupCanvasInteractions() {
-    window.addEventListener('wheel', (e) => {
-      if (state.currentView !== 'map-view') return;
-      if (e.target.closest('#details-drawer') && dom.drawer.classList.contains('open')) return;
+    if (dom.canvasWrapper) {
+      dom.canvasWrapper.addEventListener('wheel', (e) => {
+        if (state.currentView !== 'map-view') return;
+        if (e.target.closest('#details-drawer') && dom.drawer.classList.contains('open')) return;
 
-      e.preventDefault();
+        e.preventDefault();
 
-      const rect = dom.canvasWrapper.getBoundingClientRect();
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      const zoomFactor = e.deltaY < 0 ? 1.14 : 0.86;
-      setZoom(state.zoom * zoomFactor, mouseX, mouseY);
-    }, { passive: false });
+        const rect = dom.canvasWrapper.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const zoomFactor = e.deltaY < 0 ? 1.14 : 0.86;
+        setZoom(state.zoom * zoomFactor, mouseX, mouseY);
+      }, { passive: false });
+    }
+
+    const presStage = document.querySelector('.presentation-stage');
+    if (presStage) {
+      presStage.addEventListener('wheel', (e) => {
+        if (state.currentView === 'presentation-view') {
+          presStage.scrollTop += e.deltaY;
+        }
+      }, { passive: true });
+    }
   }
 
   // ==========================================================================
