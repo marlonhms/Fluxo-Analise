@@ -10,7 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2338BDF8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M18 20V10'/><path d='M12 20V4'/><path d='M6 20v-6'/></svg>">
   
   <!-- CSS with cache-busting -->
-  <link rel="stylesheet" href="style.css?v=14.0">
+  <link rel="stylesheet" href="style.css?v=15.0">
   
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -275,26 +275,39 @@
         <div class="scenario-arena">
           <div class="arena-top-controls">
             <div class="player-controls">
-              <button class="sim-play-btn" id="sim-play-btn">
-                <i data-lucide="play" id="sim-play-icon" style="width: 16px; height: 16px;"></i>
+              <button class="sim-step-btn" id="sim-prev-btn" title="Passo Anterior (←)">
+                <i data-lucide="chevron-left" style="width: 15px; height: 15px;"></i>
+                <span>Anterior</span>
+              </button>
+              <button class="sim-play-btn" id="sim-play-btn" title="Iniciar Reprodução Automática">
+                <i data-lucide="play" style="width: 15px; height: 15px;"></i>
                 <span id="sim-play-label">Iniciar Simulação</span>
               </button>
-              <button class="sim-step-btn" id="sim-step-btn">
+              <button class="sim-step-btn primary-step" id="sim-step-btn" title="Passo Seguinte (→ ou Espaço)">
                 <span>Passo Seguinte</span>
-                <i data-lucide="step-forward" style="width: 14px; height: 14px;"></i>
+                <i data-lucide="chevron-right" style="width: 15px; height: 15px;"></i>
               </button>
-              <button class="sim-step-btn" id="sim-reset-btn">
+              <button class="sim-step-btn" id="sim-reset-btn" title="Reiniciar do Início">
                 <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i>
                 <span>Reiniciar</span>
               </button>
             </div>
-            <div style="font-size: 13px; color: var(--text-secondary);" id="sim-progress-text">
-              Etapa 0 de 0
+            
+            <div class="sim-progress-block">
+              <div class="sim-progress-text" id="sim-progress-text">Etapa 1 de 15</div>
+              <div class="sim-progress-track">
+                <div class="sim-progress-fill" id="sim-progress-bar" style="width: 10%;"></div>
+              </div>
             </div>
           </div>
 
           <!-- Horizontal Path Step Tracker -->
           <div class="simulation-path-track" id="sim-track">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- Live Active Step Inspector Card (O que acontece nesta etapa) -->
+          <div class="sim-active-step-card" id="sim-active-step-card">
             <!-- Rendered via JS -->
           </div>
 
@@ -449,7 +462,7 @@
   </div>
 
   <!-- SCRIPTS with cache-busting -->
-  <script src="data.js?v=14.0"></script>
-  <script src="app.js?v=14.0"></script>
+  <script src="data.js?v=15.0"></script>
+  <script src="app.js?v=15.0"></script>
 </body>
 </html>
