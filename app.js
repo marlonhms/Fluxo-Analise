@@ -1043,46 +1043,36 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    // Filtros de Raia
-    dom.laneFilterPills.forEach(pill => {
-      pill.addEventListener('click', () => {
-        dom.laneFilterPills.forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        const filter = pill.dataset.filter;
-        state.activeFilter = filter;
-
-        document.querySelectorAll('.swimlane').forEach(lane => {
-          if (filter === 'all') {
-            lane.style.display = 'block';
-          } else {
-            lane.style.display = lane.classList.contains(filter) ? 'block' : 'none';
-          }
-        });
-      });
-    });
-
-    // Quick Jump Buttons
-    document.querySelectorAll('.jump-btn').forEach(btn => {
+    // Botões de Salto Rápido / Navegação Panorâmica
+    document.querySelectorAll('.canvas-quick-jump .jump-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        document.querySelectorAll('.canvas-quick-jump .jump-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
         const target = btn.dataset.target;
-        if (target === 'suporte') {
+        if (target === 'all') {
+          fitToScreen();
+        } else if (target === 'suporte') {
           state.panX = 40;
           state.panY = 30;
           state.zoom = 0.85;
+          updateTransform(true);
         } else if (target === 'ponto_focal') {
           state.panX = 40;
           state.panY = -320;
           state.zoom = 0.85;
+          updateTransform(true);
         } else if (target === 'analise_tecnica') {
           state.panX = 40;
           state.panY = -760;
           state.zoom = 0.85;
+          updateTransform(true);
         } else if (target === 'areas_apoio') {
           state.panX = 40;
           state.panY = -1200;
           state.zoom = 0.85;
+          updateTransform(true);
         }
-        updateTransform(true);
       });
     });
 

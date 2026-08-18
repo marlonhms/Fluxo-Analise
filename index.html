@@ -7,7 +7,7 @@
   <meta name="description" content="Apresentação interativa e executiva do fluxo de trabalho da equipe de análise técnica, triagem de suporte e integração com engenharia.">
   
   <!-- CSS with cache-busting -->
-  <link rel="stylesheet" href="style.css?v=8.0">
+  <link rel="stylesheet" href="style.css?v=9.0">
   
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -175,33 +175,32 @@
       <section id="map-view" class="view-container">
         <!-- Top Bar Overlay -->
         <div class="map-top-bar">
-          <div class="swimlane-filter-bar">
-            <button class="lane-filter-pill active" data-filter="all" style="--pill-color: #F8FAFC; --pill-glow: rgba(255,255,255,0.2);">
-              <span>Todos os Fluxos</span>
+          <div class="canvas-quick-jump">
+            <button class="jump-btn active" data-target="all" style="--btn-color: #F8FAFC; --btn-glow: rgba(255,255,255,0.2);">
+              <i data-lucide="maximize-2" style="width: 14px; height: 14px;"></i>
+              <span>Visão Completa</span>
             </button>
-            <button class="lane-filter-pill" data-filter="suporte" style="--pill-color: #38BDF8; --pill-glow: rgba(56,189,248,0.3);">
-              <span class="dot"></span>
+            <button class="jump-btn" data-target="suporte" style="--btn-color: #38BDF8; --btn-glow: rgba(56,189,248,0.35);">
+              <span class="dot" style="background: #38BDF8;"></span>
               <span>1. Suporte</span>
             </button>
-            <button class="lane-filter-pill" data-filter="ponto_focal" style="--pill-color: #818CF8; --pill-glow: rgba(129,140,248,0.3);">
-              <span class="dot"></span>
+            <button class="jump-btn" data-target="ponto_focal" style="--btn-color: #818CF8; --btn-glow: rgba(129,140,248,0.35);">
+              <span class="dot" style="background: #818CF8;"></span>
               <span>2. Ponto Focal</span>
             </button>
-            <button class="lane-filter-pill" data-filter="analise_tecnica" style="--pill-color: #34D399; --pill-glow: rgba(52,211,153,0.3);">
-              <span class="dot"></span>
+            <button class="jump-btn" data-target="analise_tecnica" style="--btn-color: #34D399; --btn-glow: rgba(52,211,153,0.35);">
+              <span class="dot" style="background: #34D399;"></span>
               <span>3. Análise Técnica</span>
             </button>
-            <button class="lane-filter-pill" data-filter="areas_apoio" style="--pill-color: #F59E0B; --pill-glow: rgba(245,158,11,0.3);">
-              <span class="dot"></span>
+            <button class="jump-btn" data-target="areas_apoio" style="--btn-color: #F59E0B; --btn-glow: rgba(245,158,11,0.35);">
+              <span class="dot" style="background: #F59E0B;"></span>
               <span>4. Áreas de Apoio</span>
             </button>
           </div>
 
-          <div class="canvas-quick-jump">
-            <button class="jump-btn" data-target="suporte">📍 Suporte</button>
-            <button class="jump-btn" data-target="ponto_focal">📍 Ponto Focal</button>
-            <button class="jump-btn" data-target="analise_tecnica">📍 Análise Técnica</button>
-            <button class="jump-btn" data-target="areas_apoio">📍 Áreas de Apoio</button>
+          <div style="font-size: 11.5px; color: var(--text-secondary); background: var(--bg-glass-heavy); padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 6px; pointer-events: auto;">
+            <i data-lucide="info" style="width: 13px; height: 13px; color: #38BDF8;"></i>
+            <span>Navegação pelas setas do teclado (← ↑ → ↓)</span>
           </div>
         </div>
 
@@ -433,7 +432,7 @@
   </div>
 
   <!-- SCRIPTS with cache-busting -->
-  <script src="data.js?v=8.0"></script>
-  <script src="app.js?v=8.0"></script>
+  <script src="data.js?v=9.0"></script>
+  <script src="app.js?v=9.0"></script>
 </body>
 </html>
