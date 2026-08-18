@@ -310,7 +310,7 @@ body.is-fullscreen .main-viewport,
   transition: opacity var(--transition-normal);
   width: 100%;
   height: 100%;
-  /* NÃO colocar overflow: hidden aqui — mata o scroll de TODAS as views filhas */
+  overflow: hidden; /* necessário para confinar filhos absolutos */
 }
 
 .view-container.active {
