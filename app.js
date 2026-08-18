@@ -194,32 +194,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // ZOOM POR SCROLL DO MOUSE (CANVAS) & ROLAGEM DOS SLIDES
+  // WHEEL: ZOOM NO MAPA | SCROLL LIVRE NO GUIA
   // ==========================================================================
   function setupCanvasInteractions() {
-    if (dom.canvasWrapper) {
-      dom.canvasWrapper.addEventListener('wheel', (e) => {
-        if (state.currentView !== 'map-view') return;
-        if (e.target.closest('#details-drawer') && dom.drawer.classList.contains('open')) return;
+    // Listener global no window — só intercepta no mapa panorâmico
+    window.addEventListener('wheel', (e) => {
+      if (state.currentView !== 'map-view') return; // Guia: deixa o browser rolar livremente
+      if (e.target.closest('#details-drawer') && dom.drawer.classList.contains('open')) return;
 
-        e.preventDefault();
+      e.preventDefault(); // Impede scroll da página apenas no mapa
 
-        const rect = dom.canvasWrapper.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-        const zoomFactor = e.deltaY < 0 ? 1.14 : 0.86;
-        setZoom(state.zoom * zoomFactor, mouseX, mouseY);
-      }, { passive: false });
-    }
-
-    const presStage = document.querySelector('.presentation-stage');
-    if (presStage) {
-      presStage.addEventListener('wheel', (e) => {
-        if (state.currentView === 'presentation-view') {
-          presStage.scrollTop += e.deltaY;
-        }
-      }, { passive: true });
-    }
+      const rect = dom.canvasWrapper.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      const zoomFactor = e.deltaY < 0 ? 1.14 : 0.86;
+      setZoom(state.zoom * zoomFactor, mouseX, mouseY);
+    }, { passive: false });
   }
 
   // ==========================================================================
