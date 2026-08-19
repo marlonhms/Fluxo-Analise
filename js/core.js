@@ -59,6 +59,10 @@ App.switchView = function(viewId) {
     }, 40);
   }
 
+  if (viewId === 'scenario-view') {
+    App.updateSimulationUI();
+  }
+
   App.refreshIcons();
 };
 

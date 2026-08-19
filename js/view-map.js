@@ -18,16 +18,16 @@ App.setupCanvasInteractions = function() {
   const dom = App.dom;
   const state = App.state;
 
-  if (dom.canvasWrapper) {
-    // Wheel zoom: EXCLUSIVO ao canvas-wrapper, não vaza para outras views
-    dom.canvasWrapper.addEventListener('wheel', (e) => {
+  const mapTarget = dom.mapView || dom.canvasWrapper;
+  if (mapTarget) {
+    // Wheel zoom: EXCLUSIVO ao mapa panorâmico, sem vazar para outras views
+    mapTarget.addEventListener('wheel', (e) => {
       if (state.currentView !== 'map-view') return;
-      if (e.target.closest('#details-drawer') && dom.drawer.classList.contains('open')) return;
+      if (e.target.closest('#details-drawer') && dom.drawer && dom.drawer.classList.contains('open')) return;
 
       e.preventDefault();
-      e.stopPropagation();
 
-      const rect = dom.canvasWrapper.getBoundingClientRect();
+      const rect = (dom.canvasWrapper || mapTarget).getBoundingClientRect();
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
       const zoomFactor = e.deltaY < 0 ? 1.14 : 0.86;
@@ -38,17 +38,18 @@ App.setupCanvasInteractions = function() {
     let isDragging = false;
     let dragStartX = 0, dragStartY = 0;
     let panStartX = 0, panStartY = 0;
+    const dragTarget = dom.canvasWrapper || mapTarget;
 
-    dom.canvasWrapper.addEventListener('mousedown', (e) => {
+    dragTarget.addEventListener('mousedown', (e) => {
       if (state.currentView !== 'map-view') return;
       if (e.button !== 0) return;
-      if (e.target.closest('.flow-node') || e.target.closest('.support-card')) return;
+      if (e.target.closest('.flow-node') || e.target.closest('.support-card') || e.target.closest('.jump-btn') || e.target.closest('.tool-btn')) return;
       isDragging = true;
       dragStartX = e.clientX;
       dragStartY = e.clientY;
       panStartX = state.panX;
       panStartY = state.panY;
-      dom.canvasWrapper.style.cursor = 'grabbing';
+      dragTarget.style.cursor = 'grabbing';
     });
 
     window.addEventListener('mousemove', (e) => {
@@ -63,7 +64,7 @@ App.setupCanvasInteractions = function() {
     window.addEventListener('mouseup', () => {
       if (isDragging) {
         isDragging = false;
-        dom.canvasWrapper.style.cursor = 'grab';
+        dragTarget.style.cursor = 'grab';
       }
     });
   }
@@ -72,14 +73,17 @@ App.setupCanvasInteractions = function() {
 App.updateTransform = function(smooth = false) {
   const dom = App.dom;
   const state = App.state;
+  if (!dom.diagramBoard) return;
   if (smooth) {
     dom.diagramBoard.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
-    setTimeout(() => { dom.diagramBoard.style.transition = 'none'; }, 300);
+    setTimeout(() => { if (dom.diagramBoard) dom.diagramBoard.style.transition = 'none'; }, 300);
   } else {
     dom.diagramBoard.style.transition = 'none';
   }
   dom.diagramBoard.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.zoom})`;
-  dom.zoomValue.textContent = `${Math.round(state.zoom * 100)}%`;
+  if (dom.zoomValue) {
+    dom.zoomValue.textContent = `${Math.round(state.zoom * 100)}%`;
+  }
 };
 
 App.setZoom = function(newZoom, centerX = null, centerY = null) {
@@ -91,7 +95,7 @@ App.setZoom = function(newZoom, centerX = null, centerY = null) {
   if (clampedZoom === state.zoom) return;
 
   if (centerX === null || centerY === null) {
-    const rect = dom.canvasWrapper.getBoundingClientRect();
+    const rect = dom.canvasWrapper ? dom.canvasWrapper.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
     centerX = rect.width / 2;
     centerY = rect.height / 2;
   }

@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    CSS ISOLADO: VIEW APRESENTAÇÃO GUIADA
    Alterações aqui NÃO afetam outras views.
    ========================================================================== */
@@ -11,12 +11,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-}
-
-/* VIEW 2: MAPA PANORÂMICO (canvas com pan/zoom — NÃO rola, faz zoom) */
-#map-view {
-  overflow: hidden;
-  position: relative;
 }
 
 /* Coluna Principal da Apresentação */
