@@ -6,12 +6,12 @@
  */
 window.App = window.App || {};
 
-// Offsets Y das raias no board (em px)
+// Offsets Y exatos das raias no board (em px)
 const LANE_TOP_OFFSETS = {
   suporte: 20,
-  ponto_focal: 430,
-  analise_tecnica: 900,
-  areas_apoio: 1450
+  ponto_focal: 470,
+  analise_tecnica: 960,
+  areas_apoio: 1490
 };
 
 App.setupCanvasInteractions = function() {
@@ -109,11 +109,12 @@ App.setZoom = function(newZoom, centerX = null, centerY = null) {
 App.fitToScreen = function() {
   const state = App.state;
   const dom = App.dom;
+  if (!dom.canvasWrapper) return;
   const rect = dom.canvasWrapper.getBoundingClientRect();
   if (rect.width === 0) return;
 
-  const boardWidth = 3000;
-  const boardHeight = 1880;
+  const boardWidth = 3100;
+  const boardHeight = 1800;
   const scaleX = (rect.width - 60) / boardWidth;
   const scaleY = (rect.height - 80) / boardHeight;
   const idealZoom = Math.max(0.35, Math.min(1.05, Math.min(scaleX, scaleY)));
@@ -145,7 +146,6 @@ App.centerOnNode = function(nodeId) {
 
 App.renderBPMNCanvas = function() {
   const dom = App.dom;
-  const state = App.state;
   dom.swimlaneContainer.innerHTML = '';
 
   FLOW_DATA.lanes.forEach(lane => {
@@ -292,6 +292,8 @@ App.getNodeAnchors = function(node) {
 
 App.renderSvgConnections = function() {
   const dom = App.dom;
+  if (!dom.connectionsSvg) return;
+
   dom.connectionsSvg.innerHTML = `
     <defs>
       <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
@@ -303,6 +305,12 @@ App.renderSvgConnections = function() {
       <marker id="arrowhead-green" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
         <polygon points="0 1, 9 4.5, 0 8" fill="#34D399"/>
       </marker>
+      <marker id="arrowhead-indigo" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+        <polygon points="0 1, 9 4.5, 0 8" fill="#818CF8"/>
+      </marker>
+      <marker id="arrowhead-amber" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+        <polygon points="0 1, 9 4.5, 0 8" fill="#F59E0B"/>
+      </marker>
     </defs>
   `;
 
@@ -313,16 +321,78 @@ App.renderSvgConnections = function() {
 
     const fromAnchors = App.getNodeAnchors(fromNode);
     const toAnchors = App.getNodeAnchors(toNode);
-    const dx = toAnchors.center.x - fromAnchors.center.x;
-    const dy = toAnchors.center.y - fromAnchors.center.y;
 
-    let p1 = fromAnchors.right, p2 = toAnchors.left;
-    if (Math.abs(dx) >= Math.abs(dy)) {
-      p1 = dx > 0 ? fromAnchors.right : fromAnchors.left;
-      p2 = dx > 0 ? toAnchors.left : toAnchors.right;
+    let fromPort = conn.fromPort;
+    let toPort = conn.toPort;
+
+    if (!fromPort || !toPort) {
+      const dx = toAnchors.center.x - fromAnchors.center.x;
+      const dy = toAnchors.center.y - fromAnchors.center.y;
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        fromPort = dx > 0 ? 'right' : 'left';
+        toPort = dx > 0 ? 'left' : 'right';
+      } else {
+        fromPort = dy > 0 ? 'bottom' : 'top';
+        toPort = dy > 0 ? 'top' : 'bottom';
+      }
+    }
+
+    const p1 = fromAnchors[fromPort];
+    const p2 = toAnchors[toPort];
+
+    const points = [p1];
+
+    if (conn.waypoints && conn.waypoints.length > 0) {
+      conn.waypoints.forEach(wp => {
+        let wx = wp.x;
+        let wy = wp.y;
+        if (wp.lane) {
+          wx = 200 + wp.x;
+          wy = (LANE_TOP_OFFSETS[wp.lane] || 0) + wp.y;
+        }
+        points.push({ x: wx, y: wy });
+      });
     } else {
-      p1 = dy > 0 ? fromAnchors.bottom : fromAnchors.top;
-      p2 = dy > 0 ? toAnchors.top : toAnchors.bottom;
+      // Orthogonal path generation
+      if (fromPort === 'right' && toPort === 'left') {
+        if (Math.abs(p1.y - p2.y) >= 4) {
+          const midX = p1.x + (p2.x - p1.x) * 0.5;
+          points.push({ x: midX, y: p1.y });
+          points.push({ x: midX, y: p2.y });
+        }
+      } else if (fromPort === 'bottom' && toPort === 'top') {
+        if (Math.abs(p1.x - p2.x) >= 4) {
+          const midY = p1.y + (p2.y - p1.y) * 0.5;
+          points.push({ x: p1.x, y: midY });
+          points.push({ x: p2.x, y: midY });
+        }
+      } else if (fromPort === 'top' && toPort === 'bottom') {
+        if (Math.abs(p1.x - p2.x) >= 4) {
+          const midY = p1.y + (p2.y - p1.y) * 0.5;
+          points.push({ x: p1.x, y: midY });
+          points.push({ x: p2.x, y: midY });
+        }
+      } else if (fromPort === 'bottom' && toPort === 'left') {
+        points.push({ x: p1.x, y: p2.y });
+      } else if (fromPort === 'right' && toPort === 'top') {
+        points.push({ x: p2.x, y: p1.y });
+      } else if (fromPort === 'right' && toPort === 'bottom') {
+        points.push({ x: p2.x, y: p1.y });
+      } else if (fromPort === 'top' && toPort === 'left') {
+        points.push({ x: p1.x, y: p2.y });
+      } else {
+        const midX = p1.x + (p2.x - p1.x) * 0.5;
+        points.push({ x: midX, y: p1.y });
+        points.push({ x: midX, y: p2.y });
+      }
+    }
+
+    points.push(p2);
+
+    // Build SVG path string
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 1; i < points.length; i++) {
+      d += ` L ${points[i].x} ${points[i].y}`;
     }
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -330,41 +400,56 @@ App.renderSvgConnections = function() {
     path.setAttribute('class', 'flow-edge');
 
     let markerId = 'arrowhead';
-    if (conn.label && conn.label.includes('NÃO')) markerId = 'arrowhead-red';
-    else if (conn.label && conn.label.includes('SIM')) markerId = 'arrowhead-green';
-    path.setAttribute('marker-end', `url(#${markerId})`);
-
-    let d = '';
-    if (Math.abs(p1.y - p2.y) < 6) {
-      d = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`;
-    } else if (Math.abs(p1.x - p2.x) < 6) {
-      d = `M ${p1.x} ${p1.y} L ${p2.x} ${p2.y}`;
-    } else {
-      if (dx > 0) {
-        const midX = p1.x + (p2.x - p1.x) * 0.5;
-        d = `M ${p1.x} ${p1.y} H ${midX} V ${p2.y} H ${p2.x}`;
-      } else {
-        const offsetDown = Math.max(p1.y, p2.y) + 40;
-        d = `M ${p1.x} ${p1.y} V ${offsetDown} H ${p2.x} V ${p2.y}`;
-      }
+    if (conn.label) {
+      if (conn.label.includes('NÃO')) markerId = 'arrowhead-red';
+      else if (conn.label.includes('SIM')) markerId = 'arrowhead-green';
+      else if (conn.label.includes('Retorno')) markerId = 'arrowhead-indigo';
+      else if (conn.label.includes('Melhoria')) markerId = 'arrowhead-amber';
     }
-
+    path.setAttribute('marker-end', `url(#${markerId})`);
     path.setAttribute('d', d);
     dom.connectionsSvg.appendChild(path);
 
+    // Render pill label badge
     if (conn.label) {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      let typeClass = 'is-neutral';
+      if (conn.label.includes('NÃO')) typeClass = 'is-nao';
+      else if (conn.label.includes('SIM')) typeClass = 'is-sim';
+      else if (conn.label.includes('Retorno') || conn.label.includes('Reanálise')) typeClass = 'is-retorno';
+      g.setAttribute('class', `edge-label-group ${typeClass}`);
+
+      // Compute midpoint of the first major segment
+      let labelX = (points[0].x + points[1].x) / 2;
+      let labelY = (points[0].y + points[1].y) / 2;
+
+      if (points.length >= 2 && Math.abs(points[0].x - points[1].x) < 4) {
+        // Vertical first segment: offset to right
+        labelX = points[0].x + 22;
+        labelY = (points[0].y + points[1].y) / 2;
+      } else if (points.length >= 2 && Math.abs(points[0].y - points[1].y) < 4) {
+        // Horizontal first segment: offset slightly above
+        labelX = (points[0].x + points[1].x) / 2;
+        labelY = points[0].y - 12;
+      }
+
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('class', 'edge-label-bg');
+      const textLen = conn.label.length * 7.5 + 16;
+      rect.setAttribute('x', -textLen / 2);
+      rect.setAttribute('y', -10);
+      rect.setAttribute('width', textLen);
+      rect.setAttribute('height', 20);
+      rect.setAttribute('rx', 6);
+
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      text.setAttribute('class', 'edge-label-badge');
+      text.setAttribute('class', 'edge-label-text');
       text.textContent = conn.label;
-      let labelX = p1.x + (p2.x - p1.x) * 0.3;
-      let labelY = p1.y - 8;
-      if (Math.abs(p1.x - p2.x) < 20) { labelX = p1.x + 16; labelY = p1.y + (p2.y - p1.y) * 0.4; }
-      text.setAttribute('x', labelX);
-      text.setAttribute('y', labelY);
-      if (conn.label.includes('NÃO')) text.setAttribute('fill', '#F43F5E');
-      else if (conn.label.includes('SIM')) text.setAttribute('fill', '#34D399');
-      else text.setAttribute('fill', '#94A3B8');
-      dom.connectionsSvg.appendChild(text);
+
+      g.setAttribute('transform', `translate(${labelX}, ${labelY})`);
+      g.appendChild(rect);
+      g.appendChild(text);
+      dom.connectionsSvg.appendChild(g);
     }
   });
 };

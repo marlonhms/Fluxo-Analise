@@ -216,22 +216,22 @@ App.setupEventListeners = function() {
         App.fitToScreen();
       } else if (target === 'suporte') {
         state.panX = 40;
-        state.panY = 30;
+        state.panY = 20;
         state.zoom = 0.85;
         App.updateTransform(true);
       } else if (target === 'ponto_focal') {
         state.panX = 40;
-        state.panY = -320;
+        state.panY = -360;
         state.zoom = 0.85;
         App.updateTransform(true);
       } else if (target === 'analise_tecnica') {
         state.panX = 40;
-        state.panY = -760;
+        state.panY = -780;
         state.zoom = 0.85;
         App.updateTransform(true);
       } else if (target === 'areas_apoio') {
         state.panX = 40;
-        state.panY = -1200;
+        state.panY = -1230;
         state.zoom = 0.85;
         App.updateTransform(true);
       }

@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Alturas e Offsets Y das raias no board (em px)
   const LANE_TOP_OFFSETS = {
     suporte: 20,
-    ponto_focal: 430,
-    analise_tecnica: 900,
-    areas_apoio: 1450
+    ponto_focal: 470,
+    analise_tecnica: 960,
+    areas_apoio: 1490
   };
 
   // Elementos do DOM
@@ -165,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const rect = dom.canvasWrapper.getBoundingClientRect();
     if (rect.width === 0) return;
 
-    const boardWidth = 3000;
-    const boardHeight = 1880;
+    const boardWidth = 3100;
+    const boardHeight = 1800;
 
     const scaleX = (rect.width - 60) / boardWidth;
     const scaleY = (rect.height - 80) / boardHeight;
@@ -1192,17 +1192,17 @@ document.addEventListener('DOMContentLoaded', () => {
           updateTransform(true);
         } else if (target === 'ponto_focal') {
           state.panX = 40;
-          state.panY = -320;
+          state.panY = -360;
           state.zoom = 0.85;
           updateTransform(true);
         } else if (target === 'analise_tecnica') {
           state.panX = 40;
-          state.panY = -760;
+          state.panY = -780;
           state.zoom = 0.85;
           updateTransform(true);
         } else if (target === 'areas_apoio') {
           state.panX = 40;
-          state.panY = -1200;
+          state.panY = -1230;
           state.zoom = 0.85;
           updateTransform(true);
         }

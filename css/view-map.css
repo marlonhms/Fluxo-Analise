@@ -127,8 +127,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 3000px;
-  height: 1880px;
+  width: 3100px;
+  height: 1800px;
   padding: 20px;
   transform-origin: 0 0;
 }
@@ -140,6 +140,7 @@
   gap: 30px;
   width: 100%;
   position: relative;
+  z-index: 1;
 }
 
 .swimlane {
@@ -148,14 +149,14 @@
   border: 1px solid var(--border-subtle);
   background: var(--bg-card);
   box-shadow: var(--shadow-sm);
-  width: 2950px;
+  width: 3060px;
   display: block;
 }
 
-.swimlane.suporte { border-left: 6px solid var(--color-suporte); height: 380px; }
-.swimlane.ponto_focal { border-left: 6px solid var(--color-focal); height: 440px; }
-.swimlane.analise_tecnica { border-left: 6px solid var(--color-tech); height: 520px; }
-.swimlane.areas_apoio { border-left: 6px solid var(--color-apoio); height: 320px; }
+.swimlane.suporte { border-left: 6px solid var(--color-suporte); height: 420px; }
+.swimlane.ponto_focal { border-left: 6px solid var(--color-focal); height: 460px; }
+.swimlane.analise_tecnica { border-left: 6px solid var(--color-tech); height: 500px; }
+.swimlane.areas_apoio { border-left: 6px solid var(--color-apoio); height: 200px; }
 
 /* Swimlane Header Banner (Left Column) */
 .swimlane-header {
@@ -210,24 +211,24 @@
   overflow: visible;
 }
 
-/* SVG Connection Layer */
+/* SVG Connection Layer (Above Swimlanes, Below Nodes) */
 .connections-svg {
   position: absolute;
   top: 0;
   left: 0;
-  width: 3000px;
-  height: 1880px;
+  width: 3100px;
+  height: 1800px;
   pointer-events: none;
-  z-index: 10;
+  z-index: 25;
 }
 
 .flow-edge {
   fill: none;
-  stroke: var(--border-medium);
-  stroke-width: 2.4px;
+  stroke: #475569;
+  stroke-width: 2.2px;
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+  transition: stroke 0.2s ease, stroke-width 0.2s ease, filter 0.2s ease;
 }
 
 .flow-edge.active-edge {
@@ -235,20 +236,63 @@
   stroke-width: 3.5px;
   stroke-dasharray: 8 6;
   animation: flowLine 1s linear infinite;
-  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.9));
 }
 
 @keyframes flowLine {
   to { stroke-dashoffset: -28; }
 }
 
-.edge-label-badge {
+/* SVG Edge Labels with Pill Background */
+.edge-label-group {
+  pointer-events: none;
+}
+
+.edge-label-bg {
+  fill: #0F172A;
+  stroke: var(--border-medium);
+  stroke-width: 1px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6));
+}
+
+.edge-label-text {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
-  fill: var(--text-primary);
   text-anchor: middle;
   dominant-baseline: central;
+}
+
+.edge-label-group.is-sim .edge-label-bg {
+  fill: #064E3B;
+  stroke: #10B981;
+}
+.edge-label-group.is-sim .edge-label-text {
+  fill: #34D399;
+}
+
+.edge-label-group.is-nao .edge-label-bg {
+  fill: #881337;
+  stroke: #F43F5E;
+}
+.edge-label-group.is-nao .edge-label-text {
+  fill: #FDA4AF;
+}
+
+.edge-label-group.is-retorno .edge-label-bg {
+  fill: #312E81;
+  stroke: #818CF8;
+}
+.edge-label-group.is-retorno .edge-label-text {
+  fill: #C7D2FE;
+}
+
+.edge-label-group.is-neutral .edge-label-bg {
+  fill: #1E293B;
+  stroke: #64748B;
+}
+.edge-label-group.is-neutral .edge-label-text {
+  fill: #E2E8F0;
 }
 
 /* ==========================================================================
@@ -268,7 +312,7 @@
 }
 
 .flow-node:hover {
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-3px) scale(1.04);
   z-index: 45;
 }
 
@@ -505,28 +549,28 @@
 /* CALLOUT ANNOTATION BOX */
 .flow-annotation-box {
   position: absolute;
-  background: rgba(30, 41, 59, 0.95);
-  border-left: 3px solid #38BDF8;
+  background: rgba(15, 23, 42, 0.96);
+  border-left: 3.5px solid #38BDF8;
   border-top: 1px dashed var(--border-medium);
   border-bottom: 1px dashed var(--border-medium);
   border-right: 1px dashed var(--border-medium);
   border-radius: 0 8px 8px 0;
-  padding: 6px 10px;
-  font-size: 10px;
+  padding: 8px 12px;
+  font-size: 10.5px;
   color: var(--text-secondary);
-  line-height: 1.25;
-  max-width: 150px;
+  line-height: 1.3;
+  max-width: 170px;
   pointer-events: none;
   z-index: 15;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Áreas de Apoio Cards Grid (2 LINHAS X 3 COLUNAS) */
+/* Áreas de Apoio Cards Grid (1 LINHA COM 6 CARDS) */
 .support-cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, 460px);
-  grid-template-rows: repeat(2, auto);
+  grid-template-columns: repeat(6, 450px);
   gap: 16px;
-  padding: 16px 20px;
+  padding: 24px 20px;
 }
 
 .support-card {
@@ -579,4 +623,3 @@
   color: var(--text-secondary);
   line-height: 1.35;
 }
-
