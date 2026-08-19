@@ -131,13 +131,18 @@ html, body {
 /* ==========================================================================
    HEADER & TOP NAVIGATION
    ========================================================================== */
+/* ==========================================================================
+   HEADER & TOP NAVIGATION (Modern 3-Column Balanced Grid)
+   ========================================================================== */
 .app-header {
   height: var(--header-height);
   padding: 0 24px;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
   background: var(--bg-glass);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   z-index: 100;
   flex-shrink: 0;
@@ -146,26 +151,36 @@ html, body {
 .brand-section {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
+  cursor: default;
+  user-select: none;
 }
 
 .brand-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-md);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
   background: linear-gradient(135deg, #0284C7, #4F46E5);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #FFFFFF;
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+  flex-shrink: 0;
+}
+
+.brand-titles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .brand-titles h1 {
   font-family: var(--font-heading);
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
   background: linear-gradient(90deg, #F8FAFC 0%, #BAE6FD 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -177,28 +192,37 @@ body.light-theme .brand-titles h1 {
   -webkit-text-fill-color: transparent;
 }
 
-.brand-titles p {
-  font-size: 11.5px;
-  color: var(--text-secondary);
-  font-weight: 400;
+.brand-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: #38BDF8;
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
 }
 
-/* Mode Switcher Tabs */
+/* Mode Switcher Tabs (Centered Pill Bar) */
 .mode-nav {
+  justify-self: center;
   display: flex;
   align-items: center;
+  gap: 4px;
   background: var(--bg-secondary);
-  padding: 4px;
+  padding: 4px 6px;
   border-radius: 999px;
   border: 1px solid var(--border-medium);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .mode-tab {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 16px;
+  gap: 7px;
+  padding: 7px 18px;
   border-radius: 999px;
   border: none;
   background: transparent;
@@ -207,33 +231,27 @@ body.light-theme .brand-titles h1 {
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: var(--transition-fast);
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mode-tab:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .mode-tab.active {
   background: linear-gradient(135deg, #0284C7, #2563EB);
   color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 3px 12px rgba(37, 99, 235, 0.45);
 }
 
-.mode-tab .tab-badge {
-  font-size: 9.5px;
-  font-family: var(--font-mono);
-  background: rgba(255, 255, 255, 0.2);
-  padding: 2px 6px;
-  border-radius: 999px;
-}
-
-/* Header Actions */
+/* Header Actions (Right) */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  justify-self: end;
 }
 
 .action-btn {
@@ -241,13 +259,13 @@ body.light-theme .brand-titles h1 {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 36px;
-  padding: 0 12px;
+  height: 34px;
+  padding: 0 10px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: var(--transition-fast);
@@ -260,7 +278,7 @@ body.light-theme .brand-titles h1 {
 }
 
 .action-btn.icon-only {
-  width: 36px;
+  width: 34px;
   padding: 0;
 }
 
@@ -269,6 +287,7 @@ body.light-theme .brand-titles h1 {
   color: #FFFFFF;
   border: none;
   font-weight: 600;
+  padding: 0 14px;
   box-shadow: 0 0 14px rgba(16, 185, 129, 0.3);
 }
 
