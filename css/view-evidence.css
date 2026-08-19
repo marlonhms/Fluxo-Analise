@@ -1,12 +1,12 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    CSS ISOLADO: VIEW EVIDÊNCIAS + COMPONENTES COMPARTILHADOS (Drawer, Modal, Footer)
    Alterações aqui NÃO afetam outras views.
    ========================================================================== */
 /* ==========================================================================
    VIEW 4: GUIA DE EVIDÊNCIAS
    ========================================================================== */
+/* display é controlado pelo .view-container.active em base.css — NÃO definir display aqui */
 #evidence-view {
-  display: block;
   width: 100%;
   height: 100%;
   padding: 28px 40px 80px 40px;

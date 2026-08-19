@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    STYLE.CSS - DESIGN SYSTEM & PROJECTION UI (ANÁLISE TÉCNICA)
    Otimizado para Telão de Projetor, Alta Resolução Vetorial Sem Perda de Nitidez.
    ========================================================================== */
@@ -305,16 +305,20 @@ body.is-fullscreen .main-viewport,
 .view-container {
   position: absolute;
   inset: 0;
-  display: none;
+  display: none !important;   /* !important para vencer seletores de ID (#scenario-view etc.) */
+  visibility: hidden;          /* segurança extra: torna invisível */
+  pointer-events: none;        /* segurança extra: bloqueia interações em views inativas */
   opacity: 0;
   transition: opacity var(--transition-normal);
   width: 100%;
   height: 100%;
-  overflow: hidden; /* necessário para confinar filhos absolutos */
+  overflow: hidden;
 }
 
 .view-container.active {
-  display: block;
+  display: block !important;
+  visibility: visible;
+  pointer-events: auto;
   opacity: 1;
 }
 

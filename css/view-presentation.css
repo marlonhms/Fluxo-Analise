@@ -5,7 +5,8 @@
 /* ==========================================================================
    VIEW 1: MODO APRESENTAÇÃO (SLIDES / STORYTELLING RICO)
    ========================================================================== */
-#presentation-view {
+/* Só aplica flex quando a view estiver ATIVA — não pode sobrescrever display:none do .view-container */
+#presentation-view.active {
   display: flex !important;
   flex-direction: row;
   width: 100%;

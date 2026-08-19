@@ -1,12 +1,12 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    CSS ISOLADO: VIEW SIMULADOR DE CENÁRIOS
    Alterações aqui NÃO afetam outras views.
    ========================================================================== */
 /* ==========================================================================
    VIEW 3: SIMULADOR DE CENÁRIOS
    ========================================================================== */
+/* display é controlado pelo .view-container.active em base.css — NÃO definir display aqui */
 #scenario-view {
-  display: block;
   width: 100%;
   height: 100%;
   padding: 24px 32px 80px 32px;
