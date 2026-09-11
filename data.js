@@ -2457,18 +2457,18 @@ const FLOW_DATA = {
       "items": [
         {
           "name": "Log do PDV",
-          "path": "C:\\Sistema\\PDV\\Logs\\PDV_YYYYMMDD.log",
+          "path": "C:\\Quality\\LOG\\QualityPDV_PAF",
           "desc": "Registra cada evento de tecla, leitor de código de barras e emissão fiscal."
         },
         {
           "name": "Backup do Banco Local",
-          "path": "C:\\Sistema\\PDV\\Data\\PDV.sqlite / .FDB / .BAK",
-          "desc": "Cópia compactada dos dados locais do terminal."
+          "path": "PGadmin > Banco 'posto'> Manutenção > backup",
+          "desc": "Cópia e exportação dos dados do banco local do PDV via pgAdmin."
         },
         {
           "name": "Log do Integra / Sincronizador",
-          "path": "C:\\Sistema\\PDV\\Logs\\Integra.log",
-          "desc": "Histórico de comunicação entre PDV e Retaguarda."
+          "path": "C:\\Quality\\LOG\\Integra",
+          "desc": "Histórico de comunicação e sincronização entre PDV e Retaguarda."
         },
         {
           "name": "Vídeo da Rotina",
@@ -2483,14 +2483,14 @@ const FLOW_DATA = {
       "color": "#10B981",
       "items": [
         {
-          "name": "Log do PAY / Gerenciador TEF",
-          "path": "C:\\Client\\Logs\\TEF_YYYYMMDD.log",
+          "name": "Log do PAY",
+          "path": "C:\\Quality\\LOG\\webPostoPayServer > spring.log",
           "desc": "Rastreio das transações com adquirentes e pinpad."
         },
         {
           "name": "Log da Automação Comercial",
-          "path": "C:\\Sistema\\Logs\\Automacao.log",
-          "desc": "Comunicação entre o PDV e a DLL do TEF."
+          "path": "C:\\Quality\\LOG\\LeituraAutomação",
+          "desc": "Comunicação entre o PDV e as automações comerciais/bombas."
         },
         {
           "name": "Comprovante / NSU da Transação",
@@ -2500,24 +2500,29 @@ const FLOW_DATA = {
       ]
     },
     {
-      "module": "Retaguarda & Fiscal",
+      "module": "Retaguarda",
       "icon": "server",
       "color": "#818CF8",
       "items": [
         {
-          "name": "Backup Completo do Banco (SQL/PG)",
-          "path": "Arquivo .BAK ou .DUMP recente",
-          "desc": "Permite à Análise restaurar a base idêntica do cliente no laboratório."
+          "name": "Vídeo da Operação",
+          "path": "Gravação MP4 demonstrando o passo a passo da rotina",
+          "desc": "Registro visual da operação realizada na retaguarda para reprodução do cenário."
         },
         {
-          "name": "Log de Serviços do Windows",
-          "path": "C:\\Sistema\\Services\\Logs\\*.log",
-          "desc": "Logs de mensageria, emissão de NF-e e conciliações automáticas."
+          "name": "Arquivo Gerado",
+          "path": "Arquivo exportado / SPED / XML / Relatório gerado no processo",
+          "desc": "Insumo de saída gerado pelo sistema para validação de layout e conteúdo."
         },
         {
-          "name": "XMLs / Arquivos Relacionados",
-          "path": "Arquivos de envio e retorno da SEFAZ",
-          "desc": "Para auditoria de regras de validação tributária."
+          "name": "Relatório Comparativo",
+          "path": "Exportação PDF / Excel / Print comparativo do valor esperado vs gerado",
+          "desc": "Evidência comparativa destacando as divergências encontradas na retaguarda."
+        },
+        {
+          "name": "Versões Testadas",
+          "path": "Informar versão atual do cliente e versão padrão de teste",
+          "desc": "Identificação de compatibilidade e validação se o comportamento se repete em outras versões."
         }
       ]
     }
